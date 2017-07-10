@@ -1,4 +1,4 @@
-# Setup a Spark-Scala Multi-Node Standalone Cluster
+# Setup a Spark Cluster
 
 ## 1. Introduction
 
