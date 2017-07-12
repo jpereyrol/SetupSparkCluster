@@ -174,6 +174,10 @@ ssh-copy-id user@<ip-address or hostname>
 
 ## 5. Lancement d'un programme Spark sur le cluster
 
+#### A. Spark-shell
+
+#### B. Fat JAR (SBT)
+
 **TODO**
 
 _________________________________________________________________________________________________________________________________
