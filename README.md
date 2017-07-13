@@ -1,4 +1,16 @@
-# Setup a Spark Cluster
+# Installation et Utilisation d'un cluster Spark
+
+L'objectif de ce tutoriel est de vous apprendre a installer un cluster Spark ainsi qu'a l'utiliser. [EXPLICATION redaction francais]
+
+**Table des matiéres**
+
+[Introduction](https://github.com/jpereyrol/SetupSparkCluster#1-introduction)
+[Configuration des esclaves](https://github.com/jpereyrol/SetupSparkCluster#2-configuration-des-slaves)
+[Configuration du maître](https://github.com/jpereyrol/SetupSparkCluster#3-configuration-du-maître)
+[SSH entre esclaves et maître](https://github.com/jpereyrol/SetupSparkCluster#4-configuration-de-openssh-entre-chaque-slave--master)
+[Utilisation du cluster](https://github.com/jpereyrol/SetupSparkCluster#5-lancement-dun-programme-spark-sur-le-cluster)
+
+
 
 ## 1. Introduction
 
