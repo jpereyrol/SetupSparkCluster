@@ -1,6 +1,6 @@
 # Installation et Utilisation d'un cluster Spark
 
-L'objectif de ce tutoriel est de vous apprendre à installer un cluster Spark ainsi qu'à l'utiliser. Il est redigé en français pour une relecture facile par des français.
+L'objectif de ce tutoriel est de vous apprendre à installer un cluster Spark ainsi qu'à l'utiliser. Rédigé en français.
 
 **Table des matiéres**
 
@@ -22,7 +22,43 @@ Plusieurs solutions s'offrent à vous pour ces 'nodes' :
 
 Afin que les différentes machines puissent communiquer entres elles il faut qu'elles soient dans le même sous-réseau (cablé ou non).
 
-## 2. Configuration des slaves
+## 2. SSH entre esclaves et maître
+
+Pour chaque slave il faut faire l'action suivante :
+
+Sur le MAÎTRE :
+
+Générer une clé public : 
+
+```bash
+ssh-keygen -t rsa
+```
+
+Il faut ensuite ajouter cette clé public dans le fichier authorized_keys du slave, on peut le faire directement depuis le MAÎTRE
+
+```bash
+ssh-copy-id user@<ip-address or hostname>
+```
+*Il faudra entrer le mot de passe de la session slave pour se connecter*
+
+Sur l'ESCLAVE :
+
+Générer une clé public :
+
+```bash
+ssh-keygen -t rsa
+```
+
+Il faut ensuite ajouter cette clé public dans le fichier authorized_keys du maître, on peut le faire directement depuis l'ESCLAVE avec :
+
+```bash
+ssh-copy-id user@<ip-address or hostname>
+```
+*Il faudra entrer le mot de passe de la session maître pour se connecter*
+
+Vous voilà maintenant prêt pour configurer facilement le maître et tout les esclaves !
+
+## 3. Configuration des esclaves
 
 En plus de devoir être dans le même sous-réseau il faut qu'elles aient toutes des IP différentes. Je précise cela car c'est un probléme récurrent lors des tests avec des machines virtuelles par exemple.
 
@@ -78,7 +114,7 @@ Pour rendre les changements effectifs :
 source ~/.bashrc
 ```
 
-## 3. Configuration du maître
+## 4. Configuration du maître
 
 La configuration est presque identique, mais attention aux petites erreurs toujours. 
 
@@ -152,53 +188,30 @@ On ajoute dans ce fichier l'addresse IP de chaque esclave, restez sobre, il faut
 
 #### F. Configuration des scripts pour lancer les slaves
 
-- slaves.template -> slaves
-
-**TODO**
-
-- spark-env.sh.template -> spark-env.sh
-
-**TODO**
-
-## 4. Configuration de OpenSSH entre chaque slave / master
-
-**TODO : Mettre avant configuration esclave / maître**
-
-Pour chaque slave il faut faire l'action suivante :
-
-Sur le MAÎTRE :
-
-Générer une clé public : 
+Nous allons maintenant faire la configuration de spark. Il y a deux fichiers à modifier, *slaves* et *spark-env.sh* :
 
 ```bash
-ssh-keygen -t rsa
+cd $SPARK_HOME/conf/
+cp slaves.template slaves
+cp spark-env.sh.template spark-env.sh
 ```
 
-Il faut ensuite ajouter cette clé public dans le fichier authorized_keys du slave, on peut le faire directement depuis le MAÎTRE
+Dans le fichier *slaves*, il faut indiquer tout les esclaves de notre cluster. Si vous avez utilisé /etc/host vous pouvez mettre directement le *hostname* sinon l'adresse IP.
 
-```bash
-ssh-copy-id user@<ip-address or hostname>
 ```
-*Il faudra entrer le mot de passe de la session slave pour se connecter*
-
-Sur l'ESCLAVE :
-
-Générer une clé public :
-
-```bash
-ssh-keygen -t rsa
+slave-1
+slave-2
+slave-3
 ```
 
-Il faut ensuite ajouter cette clé public dans le fichier authorized_keys du maître, on peut le faire directement depuis l'ESCLAVE avec :
+Le fichier *spark-env.sh* nous permet de configurer le cluster et son comportement. Je vais juste indiquer les paramètres minimaux pour le fonctionnement du cluster mais je vous invite à vous réferer à la documentation si vous souhaitez en ajouter.
 
-```bash
-ssh-copy-id user@<ip-address or hostname>
 ```
-*Il faudra entrer le mot de passe de la session maître pour se connecter*
+export SPARK_MASTER_HOST=<master-ip-address>
+export SPARK_LOCAL_IP=<current-node-ip-address>
+```
 
-Vous voilà maintenant prêt pour configurer facilement le maître et tout les esclaves !
-
-## 5. Lancement d'un programme Spark sur le cluster
+## 5. Utilisation du cluster Spark
 
 #### A. Spark-shell
 
