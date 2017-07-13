@@ -251,7 +251,7 @@ Vous pouvez vérifier que tout fonctionne sur la Web UI du cluster qui se trouve
 
 spark://<master-ip>:8080
 
-## 5. Utilisation du cluster
+## 6. Utilisation du cluster
 
 #### A. Spark-shell
 
@@ -271,6 +271,10 @@ Une fois le fat JAR créer il vous suffit de le submit au cluster via la command
 /usr/share/spark-2.1.0-bin-hadoop2.7/bin/spark-submit --master spark://<master-ip>:7077 --class <main-class-name> ~/Path/To/Jar/<jar-name>.jar
 ```
 **IMPORTANT : vous pouvez submit depuis n'importe quelle machine tant que vous avez spark sur celle-ci**
+
+## 7. Conclusion
+
+Vous savez maintenant installer et utiliser un cluster standalone spark ... **TODO**
 
 _________________________________________________________________________________________________________________________________
 
