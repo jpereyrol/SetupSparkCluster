@@ -1,6 +1,6 @@
-# Installation et Utilisation d'un cluster Spark
+# Installation et utilisation d'un cluster Spark
 
-L'objectif de ce tutoriel est de vous apprendre à installer un cluster Spark ainsi qu'à l'utiliser. Rédigé en français.
+L'objectif de ce tutoriel est de vous apprendre à installer un cluster Spark avec les paramètres minimaux requis pour son fonctionnement. Vous pourrez l'utiliser pour des traitements dans le **spark-shell** ou encore pour des applications spark via **spark-submit**. Si vous souhaitez creuser d'avantage ce sujet je vous invite à améliorer la configuration ici proposé pour combler vos besoins et désirs.
 
 **Table des matiéres**
 
@@ -12,15 +12,28 @@ L'objectif de ce tutoriel est de vous apprendre à installer un cluster Spark ai
 
 ## 1. Introduction
 
-Pour un cluster, on pense tout d'abord aux deux entités qui auront un rôle majeur dans celui-ci : Le maître (master) et les esclaves (slaves). Il nous faut donc une machine pour 'contrôler' ce cluster, et des esclaves pour lui obéir.
+Le terme de cluster (grappe en français) fait référence à une batterie d'ordinateurs, tous interconnéctés, dans le but de partager des ressources informatiques.
 
-Plusieurs solutions s'offrent à vous pour ces 'nodes' :
+[IMAGE FONCTIONNEMENT CLUSTER]
 
-  - Plusieurs ordinateurs (raspberry pi, ordinateur portable ...)
-  - Amazon AWS
-  - Installation d'une plateforme virtuelle avec plusieurs machines virtuelles pour simuler ce cluster
+**TODO : Explication fonctionnement cluster spark**
 
-Afin que les différentes machines puissent communiquer entres elles il faut qu'elles soient dans le même sous-réseau (cablé ou non).
+[IMAGE FONCTIONNEMENT CLUSTER SPARK]
+
+Pour réaliser ce cluster, nous allons donc avoir besoin de :
+
+  * Un maître
+  * Un ou des esclaves
+  * Un même sous-réseau pour toutes les machines
+  * Une connexion internet fonctionnelle
+  
+Beaucoup de choix s'offrent à vous pour ces "nodes" (maître, esclaves), en voici quelques uns pour vous aider :
+  
+  * Plusieurs ordinateurs (raspberry pi, vieux ordinateurs)
+  * Amazon AWS
+  * Installation d'une plateforme virtuelle avec plusieurs machines virtuelles pour simuler ce cluster
+  
+  
 
 ## 2. SSH entre esclaves et maître
 
@@ -219,4 +232,5 @@ ________________________________________________________________________________
 
 #### Sources : 
 
-- Spark GraphX in Action - *Michael S. Malak* and *Robin East* 
+- Spark GraphX in Action - *Michael S. Malak* and *Robin East*
+- [Qu'est ce qu'un Cluster](http://www-igm.univ-mlv.fr/~dr/XPOSE2001/vayssade/qu-est%20ce%20qu-un%20cluster.htm) - *Renaud Vayssade*
