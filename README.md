@@ -27,19 +27,27 @@ Pour réaliser ce cluster, nous allons donc avoir besoin de :
   * Un même sous-réseau pour toutes les machines
   * Une connexion internet fonctionnelle
   
+En plus de devoir être dans le même sous-réseau il faut qu'elles aient toutes des IP différentes. Je précise cela car c'est un probléme récurrent lors des tests avec des machines virtuelles par exemple.
+  
 Beaucoup de choix s'offrent à vous pour ces "nodes" (maître, esclaves), en voici quelques uns pour vous aider :
   
   * Plusieurs ordinateurs (raspberry pi, vieux ordinateurs)
   * Amazon AWS
   * Installation d'une plateforme virtuelle avec plusieurs machines virtuelles pour simuler ce cluster
-  
-  
+ 
+Pour le choix de l'OS, nous allons utiliser Ubuntu 16.04 LTS pour sa stabilité et simplicité d'installation. Néanmoins j'assure qu'il est possible de faire la même chose sur Windows et MacOS, avec un peu plus de difficultés.
+
+**Conseil : créez un utilisateur 'spark' sur toutes les machines, cela vous évitera beaucoup de problèmes de permissions.**
+
+Maintenant, passons à l'installation !
 
 ## 2. SSH entre esclaves et maître
 
+Afin de pouvoir administrer toutes les machines depuis la votre, nous allons échanger les clés SSH entre chaques nodes.
+
 Pour chaque slave il faut faire l'action suivante :
 
-Sur le MAÎTRE :
+**Sur le maître :**
 
 Générer une clé public : 
 
@@ -47,14 +55,14 @@ Générer une clé public :
 ssh-keygen -t rsa
 ```
 
-Il faut ensuite ajouter cette clé public dans le fichier authorized_keys du slave, on peut le faire directement depuis le MAÎTRE
+Il faut ensuite ajouter cette clé public dans le fichier authorized_keys du slave, on peut le faire directement depuis le maître :
 
 ```bash
 ssh-copy-id user@<ip-address or hostname>
 ```
 *Il faudra entrer le mot de passe de la session slave pour se connecter*
 
-Sur l'ESCLAVE :
+**Sur l'esclave :**
 
 Générer une clé public :
 
@@ -62,7 +70,7 @@ Générer une clé public :
 ssh-keygen -t rsa
 ```
 
-Il faut ensuite ajouter cette clé public dans le fichier authorized_keys du maître, on peut le faire directement depuis l'ESCLAVE avec :
+Il faut ensuite ajouter cette clé public dans le fichier authorized_keys du maître, on peut le faire directement depuis l'esclave avec :
 
 ```bash
 ssh-copy-id user@<ip-address or hostname>
@@ -73,17 +81,17 @@ Vous voilà maintenant prêt pour configurer facilement le maître et tout les e
 
 ## 3. Configuration des esclaves
 
-En plus de devoir être dans le même sous-réseau il faut qu'elles aient toutes des IP différentes. Je précise cela car c'est un probléme récurrent lors des tests avec des machines virtuelles par exemple.
-
-Pour le choix de l'OS, nous allons utiliser Ubuntu 16.04 pour sa stabilité et simplicité d'installation. Néanmoins j'assure qu'il est possible de faire la même chose sur Windows et MacOS, avec un peu plus de difficultées.
+**ATTENTION** : Pour toutes ces installations, il faut que le chemin soit identique sur toutes les machines.
 
 #### A. Installation de Java
+
+Veuillez suivre ce tutoriel :
 
 [Installer Java 8 sur Ubuntu 16.04](https://www.digitalocean.com/community/tutorials/how-to-install-java-with-apt-get-on-ubuntu-16-04)
 
 #### B. Installation de Scala
 
-Scala est dans les repositories xenial, il suffit donc d'exécuter la commande (dans le terminal) : 
+Scala est diponible via *apt* directement :
 
 ```bash
 sudo apt-get install scala
@@ -91,13 +99,13 @@ sudo apt-get install scala
 
 #### C. Installation de Spark
 
-Vous pouvez télécharger la derniére version sur le [site](http://d3kbcqa49mib13.cloudfront.net/spark-2.1.0-bin-hadoop2.7.tgz), ou bien utilisez cette commande pour la version 2.1.0 (28 Décembre 2016) :
+Vous pouvez télécharger spark [ici](http://d3kbcqa49mib13.cloudfront.net/spark-2.1.0-bin-hadoop2.7.tgz), ou bien utilisez cette commande pour la version 2.1.0 (28 Décembre 2016) :
 
 ```bash
 wget http://d3kbcqa49mib13.cloudfront.net/spark-2.1.0-bin-hadoop2.7.tgz
 ```
 
-Il faut decompresser ce tgz pour ensuite placer cette librairie quelque part (/usr/share/ pour ma part, mais je ne sais pas si c'est le mieux ...) :
+Il faut décompresser ce tgz pour ensuite placer cette librairie quelque part (/usr/share car c'est aussi là que scala se trouve) :
 
 ```bash
 tar -xvzf spark-2.1.0-bin-hadoop2.7.tgz
@@ -106,7 +114,8 @@ sudo mv spark-2.1.0-bin-hadoop2.7 /usr/share/
 
 #### D. Ajout des variables d'environnements
 
-Une bonne méthode pour modifier des variables d'environement et s'assurer qu'elle sont initialisées a chaque démarrage est de les ajouter dans le *~/.bashrc* (ou zsh, fish ...)
+Une bonne méthode pour modifier des variables d'environement et s'assurer qu'elle sont initialisées à chaque démarrage est de les ajouter dans le *~/.bashrc*.
+
 Pour ouvrir votre fichier de configuration :
 
 ```bash
@@ -116,8 +125,8 @@ nano ~/.bashrc
 Ensuite à la fin de votre fichier ajoutez : 
 
 ```bash
-export SCALA_HOME=/usr/share/scala-2.11
-export SPARK_HOME=/usr/share/spark-2.1.0-bin-hadoop2.7
+export SCALA_HOME=/usr/share/scala-<version>
+export SPARK_HOME=/usr/share/spark-<version>-bin-hadoop<version>
 export PATH=$PATH:$SPARK_HOME/bin
 ```
 
@@ -133,9 +142,13 @@ La configuration est presque identique, mais attention aux petites erreurs toujo
 
 #### A. Installation de Java
 
+Veuillez suivre ce tutoriel :
+
 [Installer Java 8 sur Ubuntu 16.04](https://www.digitalocean.com/community/tutorials/how-to-install-java-with-apt-get-on-ubuntu-16-04)
 
 #### B. Installation de Scala
+
+Scala est diponible via *apt* directement :
 
 ```bash
 sudo apt-get install scala
@@ -143,7 +156,7 @@ sudo apt-get install scala
 
 #### C. Installation de Spark
 
-[Télécharger ici](http://d3kbcqa49mib13.cloudfront.net/spark-2.1.0-bin-hadoop2.7.tgz)
+[ici](http://d3kbcqa49mib13.cloudfront.net/spark-2.1.0-bin-hadoop2.7.tgz)
 
 Ou directement dans le terminal :
 
@@ -159,8 +172,6 @@ sudo mv spark-2.1.0-bin-hadoop2.7 /usr/share/
 ```
 
 #### D. Ajout des variables d'environnements
-
-**[ Même chose que en 2.D ]**
 
 La meilleure méthode pour modifier des variables d'environement est de les ajouter dans le *~/.bashrc* (ou zsh, fish ...)
 Pour ouvrir votre fichier de configuration :
