@@ -229,15 +229,48 @@ export SPARK_MASTER_HOST=<master-ip-address>
 export SPARK_LOCAL_IP=<current-node-ip-address>
 ```
 
+## 5. Lancement du cluster
+
+#### A. Lancement du maître
+
+Sur la machine maître :
+
+```bash
+/usr/share/spark-2.1.0-bin-hadoop2.7/sbin/start-master.sh
+```
+
+#### B. Lancement des esclaves
+
+Sur chaque esclave :
+
+```bash
+/usr/share/spark-2.1.0-bin-hadoop2.7/sbin/start-slave.sh spark://<master-ip>:7077
+```
+
+Vous pouvez vérifier que tout fonctionne sur la Web UI du cluster qui se trouve à l'URL :
+
+spark://<master-ip>:8080
+
 ## 5. Utilisation du cluster
 
 #### A. Spark-shell
 
-**TODO**
+Commande à lancer sur la machine maître :
+
+```
+bin/spark-shell --master spark://<master-ip>:7077
+```
 
 #### B. Fat JAR (SBT)
 
-**TODO**
+Pour la création d'un Fat JAR je vous invite à suivre ce tutoriel : [Création d'un Fat JAR](https://stackoverflow.com/questions/28459333/how-to-build-an-uber-jar-fat-jar-using-sbt-within-intellij-idea)
+
+Une fois le fat JAR créer il vous suffit de le submit au cluster via la commande :
+
+```bash
+/usr/share/spark-2.1.0-bin-hadoop2.7/bin/spark-submit --master spark://<master-ip>:7077 --class <main-class-name> ~/Path/To/Jar/<jar-name>.jar
+```
+**IMPORTANT : vous pouvez submit depuis n'importe quelle machine tant que vous avez spark sur celle-ci**
 
 _________________________________________________________________________________________________________________________________
 
