@@ -5,10 +5,10 @@ L'objectif de ce tutoriel est de vous apprendre à installer un cluster Spark ai
 **Table des matiéres**
 
 * [Introduction](https://github.com/jpereyrol/SetupSparkCluster#1-introduction)
-* [Configuration des esclaves](https://github.com/jpereyrol/SetupSparkCluster#2-configuration-des-slaves)
-* [Configuration du maître](https://github.com/jpereyrol/SetupSparkCluster#3-configuration-du-maître)
-* [SSH entre esclaves et maître](https://github.com/jpereyrol/SetupSparkCluster#4-configuration-de-openssh-entre-chaque-slave--master)
-* [Utilisation du cluster](https://github.com/jpereyrol/SetupSparkCluster#5-lancement-dun-programme-spark-sur-le-cluster)
+* [Configuration des esclaves](https://github.com/jpereyrol/SetupSparkCluster#2-ssh-entre-esclaves-et-maître)
+* [Configuration du maître](https://github.com/jpereyrol/SetupSparkCluster#3-configuration-des-esclaves)
+* [SSH entre esclaves et maître](https://github.com/jpereyrol/SetupSparkCluster#4-configuration-du-maître)
+* [Utilisation du cluster](https://github.com/jpereyrol/SetupSparkCluster#5-utilisation-du-cluster)
 
 ## 1. Introduction
 
@@ -120,21 +120,15 @@ La configuration est presque identique, mais attention aux petites erreurs toujo
 
 #### A. Installation de Java
 
-**[ Même chose que en 2.A ]**
-
 [Installer Java 8 sur Ubuntu 16.04](https://www.digitalocean.com/community/tutorials/how-to-install-java-with-apt-get-on-ubuntu-16-04)
 
 #### B. Installation de Scala
-
-**[ Même chose que en 2.B ]**
 
 ```bash
 sudo apt-get install scala
 ```
 
 #### C. Installation de Spark
-
-**[ Même chose que en 2.C ]**
 
 [Télécharger ici](http://d3kbcqa49mib13.cloudfront.net/spark-2.1.0-bin-hadoop2.7.tgz)
 
@@ -211,7 +205,7 @@ export SPARK_MASTER_HOST=<master-ip-address>
 export SPARK_LOCAL_IP=<current-node-ip-address>
 ```
 
-## 5. Utilisation du cluster Spark
+## 5. Utilisation du cluster
 
 #### A. Spark-shell
 
