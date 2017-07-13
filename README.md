@@ -5,9 +5,9 @@ L'objectif de ce tutoriel est de vous apprendre à installer un cluster Spark ai
 **Table des matiéres**
 
 * [Introduction](https://github.com/jpereyrol/SetupSparkCluster#1-introduction)
-* [Configuration des esclaves](https://github.com/jpereyrol/SetupSparkCluster#2-ssh-entre-esclaves-et-maître)
-* [Configuration du maître](https://github.com/jpereyrol/SetupSparkCluster#3-configuration-des-esclaves)
-* [SSH entre esclaves et maître](https://github.com/jpereyrol/SetupSparkCluster#4-configuration-du-maître)
+* [SSH entre esclaves et maître](https://github.com/jpereyrol/SetupSparkCluster#2-ssh-entre-esclaves-et-maître)
+* [Configuration des esclaves](https://github.com/jpereyrol/SetupSparkCluster#3-configuration-des-esclaves)
+* [Configuration du maître](https://github.com/jpereyrol/SetupSparkCluster#4-configuration-du-maître)
 * [Utilisation du cluster](https://github.com/jpereyrol/SetupSparkCluster#5-utilisation-du-cluster)
 
 ## 1. Introduction
