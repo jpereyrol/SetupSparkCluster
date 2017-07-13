@@ -4,11 +4,11 @@ L'objectif de ce tutoriel est de vous apprendre a installer un cluster Spark ain
 
 **Table des matiéres**
 
-[Introduction](https://github.com/jpereyrol/SetupSparkCluster#1-introduction)\n
-[Configuration des esclaves](https://github.com/jpereyrol/SetupSparkCluster#2-configuration-des-slaves)\n
-[Configuration du maître](https://github.com/jpereyrol/SetupSparkCluster#3-configuration-du-maître)\n
-[SSH entre esclaves et maître](https://github.com/jpereyrol/SetupSparkCluster#4-configuration-de-openssh-entre-chaque-slave--master)\n
-[Utilisation du cluster](https://github.com/jpereyrol/SetupSparkCluster#5-lancement-dun-programme-spark-sur-le-cluster)\n
+* [Introduction](https://github.com/jpereyrol/SetupSparkCluster#1-introduction)
+* [Configuration des esclaves](https://github.com/jpereyrol/SetupSparkCluster#2-configuration-des-slaves)
+* [Configuration du maître](https://github.com/jpereyrol/SetupSparkCluster#3-configuration-du-maître)
+* [SSH entre esclaves et maître](https://github.com/jpereyrol/SetupSparkCluster#4-configuration-de-openssh-entre-chaque-slave--master)
+* [Utilisation du cluster](https://github.com/jpereyrol/SetupSparkCluster#5-lancement-dun-programme-spark-sur-le-cluster)
 
 ## 1. Introduction
 
@@ -16,15 +16,17 @@ Pour un cluster, on pense tout d'abord aux deux entités qui auront un rôle maj
 
 Plusieurs solutions s'offrent à vous pour ces 'nodes' :
 
-  - Plusieurs ordinateurs (rpi, pc ...)
+  - Plusieurs ordinateurs (raspberry pi, ordinateur portable ...)
   - Amazon AWS
   - Installation d'une plateforme virtuelle avec plusieurs machines virtuelles pour simuler ce cluster
 
+Afin que les différentes machines puissent communiquer entres elles il faut qu'elles soient dans le même sous-réseau (cablé ou non).
+
 ## 2. Configuration des slaves
 
-Quelque soit le moyen utilisé pour les nodes il faut s'assurer qu'elles aient bien des ip différentes.
+En plus de devoir être dans le même sous-réseau il faut qu'elles aient toutes des IP différentes. Je précise cela car c'est un probléme récurrent lors des tests avec des machines virtuelles par exemple.
 
-Pour le choix de l'OS, Linux est le plus facile à setup, il me semble néanmoins que cela soit soit aussi facile avec MacOS, à tester ! Je vais donc détailler l'installation pour Ubuntu 16.04, assez commun et très stable :
+Pour le choix de l'OS, nous allons utiliser Ubuntu 16.04 pour sa stabilité et simplicité d'installation. Néanmoins j'assure qu'il est possible de faire la même chose sur Windows et MacOS, avec un peu plus de difficultées.
 
 #### A. Installation de Java
 
@@ -40,7 +42,7 @@ sudo apt-get install scala
 
 #### C. Installation de Spark
 
-Vous pouvez vous même vous rendre sur le site de Spark pour télécharger la dernière version directement, ou bien utilisez cette commande pour la version 2.1.0 (28 Décembre 2016) :
+Vous pouvez télécharger la derniére version sur le [site](http://d3kbcqa49mib13.cloudfront.net/spark-2.1.0-bin-hadoop2.7.tgz), ou bien utilisez cette commande pour la version 2.1.0 (28 Décembre 2016) :
 
 ```bash
 wget http://d3kbcqa49mib13.cloudfront.net/spark-2.1.0-bin-hadoop2.7.tgz
@@ -55,7 +57,7 @@ sudo mv spark-2.1.0-bin-hadoop2.7 /usr/share/
 
 #### D. Ajout des variables d'environnements
 
-La meilleure méthode pour modifier des variables d'environement est de les ajouter dans le *~/.bashrc* (ou zsh, fish ...)
+Une bonne méthode pour modifier des variables d'environement et s'assurer qu'elle sont initialisées a chaque démarrage est de les ajouter dans le *~/.bashrc* (ou zsh, fish ...)
 Pour ouvrir votre fichier de configuration :
 
 ```bash
@@ -81,8 +83,6 @@ source ~/.bashrc
 #### A. Installation de Java
 
 **[ Même chose que en 2.A ]**
-
-**TODO**
 
 #### B. Installation de Scala
 
