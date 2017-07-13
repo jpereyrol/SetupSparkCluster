@@ -1,6 +1,6 @@
 # Installation et Utilisation d'un cluster Spark
 
-L'objectif de ce tutoriel est de vous apprendre a installer un cluster Spark ainsi qu'a l'utiliser. [EXPLICATION redaction francais]
+L'objectif de ce tutoriel est de vous apprendre à installer un cluster Spark ainsi qu'à l'utiliser. Il est redigé en français pour une relecture facile par des français.
 
 **Table des matiéres**
 
@@ -30,7 +30,7 @@ Pour le choix de l'OS, nous allons utiliser Ubuntu 16.04 pour sa stabilité et s
 
 #### A. Installation de Java
 
-**TODO**
+[Installer Java 8 sur Ubuntu 16.04](https://www.digitalocean.com/community/tutorials/how-to-install-java-with-apt-get-on-ubuntu-16-04)
 
 #### B. Installation de Scala
 
@@ -80,15 +80,17 @@ source ~/.bashrc
 
 ## 3. Configuration du maître
 
+La configuration est presque identique, mais attention aux petites erreurs toujours. 
+
 #### A. Installation de Java
 
 **[ Même chose que en 2.A ]**
 
+[Installer Java 8 sur Ubuntu 16.04](https://www.digitalocean.com/community/tutorials/how-to-install-java-with-apt-get-on-ubuntu-16-04)
+
 #### B. Installation de Scala
 
 **[ Même chose que en 2.B ]**
-
-Scala est dans les repositories xenial, il suffit donc d'exécuter la commande (dans le terminal) : 
 
 ```bash
 sudo apt-get install scala
@@ -98,13 +100,15 @@ sudo apt-get install scala
 
 **[ Même chose que en 2.C ]**
 
-Vous pouvez vous même vous rendre sur le site de Spark pour télécharger la dernière version directement, ou bien utilisez cette commande pour la version 2.1.0 (28 Décembre 2016) :
+[Télécharger ici](http://d3kbcqa49mib13.cloudfront.net/spark-2.1.0-bin-hadoop2.7.tgz)
+
+Ou directement dans le terminal :
 
 ```bash
 wget http://d3kbcqa49mib13.cloudfront.net/spark-2.1.0-bin-hadoop2.7.tgz
 ```
 
-Il faut decompresser ce tgz pour ensuite placer cette librairie quelque part (/usr/share/ pour ma part, mais je ne sais pas si c'est le mieux ...) :
+Il faut decompresser ce tgz pour ensuite placer cette librairie quelque part :
 
 ```bash
 tar -xvzf spark-2.1.0-bin-hadoop2.7.tgz
@@ -138,17 +142,27 @@ source ~/.bashrc
 
 #### E. Configuation de /etc/hosts
 
-**TODO**
+On ajoute dans ce fichier l'addresse IP de chaque esclave, restez sobre, il faut s'en souvenir :
+
+```
+<ip-address-slave-1>          slave-1
+<ip-address-slave-2>          slave-2
+<ip-address-slave-3>          slave-3
+```
 
 #### F. Configuration des scripts pour lancer les slaves
 
 - slaves.template -> slaves
-  - TODO
+
+**TODO**
 
 - spark-env.sh.template -> spark-env.sh
-  - TODO
+
+**TODO**
 
 ## 4. Configuration de OpenSSH entre chaque slave / master
+
+**TODO : Mettre avant configuration esclave / maître**
 
 Pour chaque slave il faut faire l'action suivante :
 
@@ -165,7 +179,7 @@ Il faut ensuite ajouter cette clé public dans le fichier authorized_keys du sla
 ```bash
 ssh-copy-id user@<ip-address or hostname>
 ```
-*Il faudra entrer le mot de passe de la session slave pour se connecter :)*
+*Il faudra entrer le mot de passe de la session slave pour se connecter*
 
 Sur l'ESCLAVE :
 
@@ -180,11 +194,15 @@ Il faut ensuite ajouter cette clé public dans le fichier authorized_keys du ma�
 ```bash
 ssh-copy-id user@<ip-address or hostname>
 ```
-*Il faudra entrer le mot de passe de la session maître pour se connecter :)*
+*Il faudra entrer le mot de passe de la session maître pour se connecter*
+
+Vous voilà maintenant prêt pour configurer facilement le maître et tout les esclaves !
 
 ## 5. Lancement d'un programme Spark sur le cluster
 
 #### A. Spark-shell
+
+**TODO**
 
 #### B. Fat JAR (SBT)
 
