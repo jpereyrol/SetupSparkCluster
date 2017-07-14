@@ -261,6 +261,8 @@ Commande à lancer sur la machine maître :
 bin/spark-shell --master spark://<master-ip>:7077
 ```
 
+Pour exécuter du code depuis le spark-shell, il ne faut pas de *main* (ou de *extends App*), et il ne faut pas oublier les import !
+
 #### B. Fat JAR (SBT)
 
 Pour la création d'un Fat JAR je vous invite à suivre ce tutoriel : [Création d'un Fat JAR](https://stackoverflow.com/questions/28459333/how-to-build-an-uber-jar-fat-jar-using-sbt-within-intellij-idea)
